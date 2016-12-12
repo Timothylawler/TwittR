@@ -7,13 +7,14 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 session_start();
 
 $config = require_once 'config.php';
+$keys = require_once 'twitter_keys.php';
 
 
 // Do Twitter stuff
 //	Create TwitterOAuth object
 $twitteroauth = new TwitterOAuth(
-	$config['consumer_key'],
-	$config['consumer_secret']
+	$keys['consumer_key'],
+	$keys['consumer_secret']
 );
 
 //	Request token
