@@ -1,0 +1,20 @@
+
+.login-wrapper {
+	position: absolute;
+	bottom: 200px;
+	left: 0;
+	right: 0;
+	
+}
+
+.full-height {
+	height: 100%;
+}
+
+.centered {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+

@@ -1,2 +1,2 @@
 //	app declarence and dependencies
-angular.module('app',[]);
+angular.module('app', []);

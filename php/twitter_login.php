@@ -17,7 +17,7 @@ $twitteroauth = new TwitterOAuth(
 	$keys['consumer_secret']
 );
 
-//	Request token
+//	callback after authorized
 $request_token = $twitteroauth->oauth(
     'oauth/request_token', [
         'oauth_callback' => $config['url_callback']
