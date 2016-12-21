@@ -16,35 +16,30 @@
 	<link type="text/css" rel="stylesheet" href="style/style.css">
 	
 </head>
-<body ng-app="app">
+<body>
+
 	
-	<h3>Welcome!</h1>
-	<div ui-view></div>
+	<div class="container" ng-app="app" ng-controller="loginController">
+		<div class="login-wrapper center">
+			<p>Authenticate against twitter secure authentication to use app</p>
+			<button class="btn waves-effect waves-light" ng-click="signIn()"> Sign in to Twitter </button>
+		</div>
+	</div>
 	
 	
-	
-	<!-- jQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<!-- angular.js -->
 	<script src="script/angular.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
 	<!--<script src="path/to/angular-route.js"></script>-->
 	<!-- my angular scripts -->
 	<!-- app -->
 	<script src="script/app.js"></script>
-	<!-- route -->
-	<script src="script/route.js"></script>
 	<!-- controller -->
-	<script src="script/homeController.js"></script>
+	<script src="script/loginController.js"></script>
 	
-	
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<!-- materialize js -->
 	<script type="text/javascript" src="script/materialize.min.js"></script>
-	
-	<script>
-	
-		
-		
-	</script>
 </body>
 </html>
