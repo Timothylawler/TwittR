@@ -1,0 +1,63 @@
+<div ng-controller="menuController" class="">
+	<!-- Slide drawer -
+	<ul id="slide-out" class="side-nav deep-purple darken-3 menu">
+		<li>
+			<div class="userView">
+				<div class="background">
+				</div>
+				<a ui-sref="main.profile"><i class="large material-icons">perm_identity</i></a>
+			</div>
+		</li>
+		<li class="item">
+			<a ui-sref="main.frontpage" class="waves-effect">
+				<i class="medium material-icons">web</i>
+			</a>
+		</li>
+		<li class="item">
+			<a ui-sref="main.about" class="waves-effect">
+				<i class="medium material-icons">view_module</i>
+			</a>
+		</li>
+		<li class="item">
+			<a ui-sref="#" class="waves-effect">
+				<i class="medium material-icons">refresh</i>
+			</a>
+		</li>
+		<li class="item">
+			<a ui-sref="#" class="waves-effect">
+				<i class="medium material-icons">more_vert</i>
+			</a>
+		</li>
+
+		<li><div class="divider"></div></li>
+		<li><a class="subheader">Subheader</a></li>
+		<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+	</ul>
+	
+	<a href="#" ng-controller="menuController" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons">menu</i></a>
+	-->
+	
+	<!-- navigation bar -->
+	<nav class="nav-extended">
+    <div class="nav-wrapper container">
+      <a href="#" class="brand-logo">TwittR</a>
+     
+      <ul id="nav" class="right hide-on-med-and-down">
+        <li><a class="flow-text" href="sass.html"><i class="material-icons right">perm_identity</i> {{ username }}</a></li>
+      </ul>
+      
+
+      <ul class="tabs tabs-transparent">
+        <li class="tab"><a class="tooltipped" data-position="bottom" data-tooltip="Go to the front page" data-delay="50" ui-sref="main.frontpage">HOME</a></li>
+        <li class="tab"><a class="tooltipped" data-position="bottom" data-tooltip="Go to about" data-delay="50" ui-sref="main.about">ABOUT</a></li>
+        <li class="tab disabled"><a class="tooltipped" data-position="bottom" data-tooltip="Go to about" data-delay="50" ui-sref="#">DSA</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+
+<!-- nestled main content -->
+<div class="container">
+	<div ui-view></div>
+</div>

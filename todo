@@ -1,0 +1,100 @@
+Lilla fönstret kan anropa en funktion i opener för att stänga sig när autentiseringen är klar.
+
+
+Saker att plocka ut från timeline tweets
+[{
+	"created_at":"Wed Dec 28 11:53:02 +0000 2016",
+	"id":814076689101783040,
+	"text":"A one-time only podcast about a highly specific Tinder problem https:\/\/t.co\/PgDmNtW9pN https:\/\/t.co\/JV3cGTImyQ",
+	"entities":{  
+		 "hashtags":[  
+
+		 ],
+		 "urls":[  
+				{  
+					 "url":"https:\/\/t.co\/PgDmNtW9pN",
+					 "expanded_url":"http:\/\/www.theverge.com\/2016\/12\/27\/14081944\/verge-extras-podcast-tinder-saving-phone-numbers-dating-apps?utm_campaign=theverge&utm_content=chorus&utm_medium=social&utm_source=twitter",
+					 "display_url":"theverge.com\/2016\/12\/27\/140\u2026",
+					 "indices":[  
+							63,
+							86
+					 ]
+				}
+		 ],
+		 "media":[  
+				{ 	
+					//	Stor bild
+					"media_url":"http:\/\/pbs.twimg.com\/media\/C0wubuSUUAEG9Dr.jpg",
+				}
+			]
+	},
+	"user":{
+		"name":"The Verge",
+		 "screen_name":"verge",
+		 "location":"New York",
+		 
+		 "geo_enabled":true,
+		 "profile_image_url":"http:\/\/pbs.twimg.com\/profile_images\/793336456718782464\/cf1nuXC0_normal.jpg",
+		 }
+ "geo":null,
+	"coordinates":null,
+	"place":null,
+	"retweet_count":0,
+	"favorite_count":0,
+	"favorited":false,
+	"retweeted":false,
+}]
+
+
+saker att plocka ut från user/show
+{
+	"name": "Dompa",
+	"screen_name": "vaskaDompa",
+	"location": "",
+	"profile_location": null,
+	"description": "",
+	"url": null,
+	"entities": {
+		"description": {
+			"urls": []
+		}
+	},
+	"followers_count": 5,
+	"friends_count": 17,
+	"listed_count": 0,
+	"created_at": "Thu Dec 08 10:28:25 +0000 2016",
+	"favourites_count": 0,
+	"statuses_count": 2,
+	"status": {	//	Antar att denna är senaste tweeten
+		"created_at": "Sat Dec 10 21:46:28 +0000 2016",
+		"id": "807703049942790145",
+		"id_str": "807703049942790145",
+		"text": "\"Det finns en stol i Edsbyn\" - @jonathan_olsson",
+		"truncated": false,
+		"entities": {
+			"hashtags": [],
+			"symbols": [],
+			"user_mentions": [
+				{
+					"screen_name": "jonathan_olsson",
+					"name": "Jonathan olsson",
+					"id": 482047008,
+					"id_str": "482047008",
+					"indices": [
+						31,
+						47
+					]
+				}
+			],
+			"urls": []
+		},
+		"retweet_count": 0,
+		"favorite_count": 0,
+		"favorited": false,
+		"retweeted": false,
+	},
+	"profile_background_color": "F5F8FA",
+	"profile_background_image_url": null,
+	"profile_image_url": "http://abs.twimg.com/sticky/default_profile_images/default_profile_3_normal.png",
+	
+			

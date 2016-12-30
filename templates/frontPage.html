@@ -1,0 +1,27 @@
+<div ng-controller="frontpageController">
+	
+	<h2>FRONT PAGE asd</h2>
+	
+	<div class="row">
+	    <!-- ng-repeat for each tweet in the timeline -->
+		<div ng-repeat="tweet in timeline track by $index">
+			<div class="col s12 m6 center">
+				<div class="card horizontal">
+					<div class="card-image">
+						<img src="Images/sample-1.jpg">
+					</div>
+					<div class="card-stacked">
+						<div class="card-content">
+							<p>{{ tweet }}</p>
+						</div>
+						<div class="card-action">
+							<a href="#">This is a link</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- /ng-repeat-->
+	</div>
+	
+	<button class="btn waves-effect waves-light" ng-click="getTimeline()">Get some data!</button>
+</div>

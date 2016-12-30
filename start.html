@@ -15,36 +15,38 @@
 	
 	<link type="text/css" rel="stylesheet" href="style/style.css">
 	
-</head>
-<body ng-app="app">
-	
-	<h3>Welcome!</h1>
-	<div ui-view></div>
 	
 	
-	
+	<!-- include scripts, especially angular to have it loaded with the page -->
 	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<!-- angular.js -->
 	<script src="script/angular.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
-	<!--<script src="path/to/angular-route.js"></script>-->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
+
 	<!-- my angular scripts -->
 	<!-- app -->
 	<script src="script/app.js"></script>
 	<!-- route -->
 	<script src="script/route.js"></script>
 	<!-- controller -->
-	<script src="script/homeController.js"></script>
-	
+	<script src="script/startControllers.js"></script>
 	
 	<!-- materialize js -->
 	<script type="text/javascript" src="script/materialize.min.js"></script>
 	
-	<script>
+</head>
+
+
+
+<body ng-app="app" ng-controller="startController">
 	
-		
-		
-	</script>
+	<div ui-view></div>
+	
+	
+	
+	
+	
 </body>
+
 </html>

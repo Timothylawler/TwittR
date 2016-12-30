@@ -7,17 +7,17 @@ app
 	.state('main',{
 		url: '/main',
 		abstract: true,
-		templateUrl:'menu.html'
+		templateUrl:'templates/menu.html'
 	})
 		
 		.state('main.frontpage',{
 			url: '/front',
-			templateUrl:'includes/templates/frontPage.html'
+			templateUrl:'templates/frontPage.html'
 		})
 
 		.state('main.about', {
 			url: '/about',
-			templateUrl:'includes/templates/about.html'
+			templateUrl:'templates/second.html'
 		})
 	
 	

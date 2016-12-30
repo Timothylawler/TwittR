@@ -1,20 +1,48 @@
-
-.login-wrapper {
-	position: absolute;
-	bottom: 200px;
-	left: 0;
-	right: 0;
+body{
 	
+	/*overflow: hidden;*/
 }
 
-.full-height {
-	height: 100%;
+.triangle {
+	position: absolute;
+	bottom: 0px;
+	left:0;
+	width: 0;
+	height: 0;
+	border-top: 600px solid transparent;
+	border-left: 1920px solid rgba(242, 242, 242, 0.81);
 }
 
-.centered {
+
+#login-card {
+	position:absolute;
+	bottom: 200px;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
+	left:0;
+	right:0;
+}
+
+.twitter-login {
+	background-image: url("../Images/tw.png");
+	background-color: #ededed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	
+}
+
+
+
+.menu {
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	
+}
+
+.item{
+	padding: 12px;
 }
 
 

@@ -1,23 +1,21 @@
 <?php
 
-
 require_once '../vendor/autoload.php';
 use Abraham\TwitterOAuth\TwitterOAuth;
 
 session_start();
-
 $config = require_once 'config.php';
 $keys = require_once 'twitter_keys.php';
 
 
-// Do Twitter stuff
 //	Create TwitterOAuth object
 $twitteroauth = new TwitterOAuth(
 	$keys['consumer_key'],
 	$keys['consumer_secret']
 );
 
-//	callback after authorized
+
+//	get request token and send callback url with
 $request_token = $twitteroauth->oauth(
     'oauth/request_token', [
         'oauth_callback' => $config['url_callback']
@@ -41,5 +39,4 @@ $url = $twitteroauth->url(
 
 //	Redirect user
 header('Location: ' . $url);
-
 ?>
