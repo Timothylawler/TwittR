@@ -34,15 +34,51 @@ body{
 
 
 
-.menu {
+.centered {
 	text-align: center;
 	margin-right: auto;
 	margin-left: auto;
-	
 }
 
 .item{
 	padding: 12px;
 }
 
+/* TWEET CARDS */
+.card-fab {
+	position: absolute;
+	right: 0;
+	top:25px;
+	transform: translateX(40%);
+}
 
+.card-fab.second {
+	top: 75px;
+}
+
+.card-fab.third {
+	top: 125px;
+}
+
+.card-fab.fourth {
+	top: 175px;
+}
+
+/* /TWEET CARDS */
+
+.margin-top {
+	margin-top: 16px;
+}
+
+
+/*	ANIMATION */
+.scrollcurtain {
+	transition: all linear 0.5s;
+	height: auto;
+}
+
+.ng-hide {
+  height: 0;
+}
+
+/*	/ANIMATION*/

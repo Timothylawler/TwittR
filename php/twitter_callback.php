@@ -6,6 +6,8 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 session_start();
 $config = require_once 'config.php';
 $keys = require_once 'twitter_keys.php';
+$databaseInfo = require_once 'databaseConfig.php';
+
 
 $oauth_verifier = filter_input(INPUT_GET, 'oauth_verifier');
  
@@ -50,9 +52,32 @@ $twitter = new TwitterOAuth(
 //	Save the new twitter object to session, this is used to fetch from twitter's rest API
 $_SESSION['twitter_user'] = $twitter;
 
+//	Insert user profile into database
+$userName = $token['screen_name'];
+$user = json_encode($twitter->get("users/show", ["screen_name" => $userName]));
+$data = json_decode($user, true);
+$userId = $data['id'];
+$_SESSION['twitter_user_id'] = $userId;
+
+// Create connection
+$db = new mysqli($databaseInfo['servername'], $databaseInfo['username'], $databaseInfo['password'], $databaseInfo['dbname']);
+$query = "SELECT ID FROM usertable WHERE ID = " . $userId . ";";
+$result = $db->query($query);
+
+if($result->num_rows > 0){
+  // found
+	//	Increment visited
+	$query = "update usertable set noVisited = noVisited + 1 where ID = " . $userId . ";";
+	$db->query($query);
+}else{
+  // not found
+	// add user to database with 1 in number of times visited
+	$query = "insert into usertable (ID, noVisited) values(" . $userId . ", 1);";
+	$db->query($query);
+}
+
 //	Redirect user to the startpage of the application
 header("location: http://localhost/TwittR/start.html");
-
 
 //	Get timeline
 /*

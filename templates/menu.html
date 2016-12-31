@@ -42,15 +42,20 @@
     <div class="nav-wrapper container">
       <a href="#" class="brand-logo">TwittR</a>
      
-      <ul id="nav" class="right hide-on-med-and-down">
-        <li><a class="flow-text" href="sass.html"><i class="material-icons right">perm_identity</i> {{ username }}</a></li>
+      <ul id="nav" class="right">
+        <li><a class="flow-text" ui-sref="main.profile"><i class="material-icons right">perm_identity</i> {{ username }}</a></li>
       </ul>
       
-
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a class="tooltipped" data-position="bottom" data-tooltip="Go to the front page" data-delay="50" ui-sref="main.frontpage">HOME</a></li>
-        <li class="tab"><a class="tooltipped" data-position="bottom" data-tooltip="Go to about" data-delay="50" ui-sref="main.about">ABOUT</a></li>
-        <li class="tab disabled"><a class="tooltipped" data-position="bottom" data-tooltip="Go to about" data-delay="50" ui-sref="#">DSA</a></li>
+        <li class="tab">
+        	<a class="tooltipped" data-position="bottom" data-tooltip="Go to the front page" data-delay="50" ui-sref="main.frontpage">HOME</a>
+				</li>
+        <li class="tab">
+        	<a class="tooltipped" data-position="bottom" data-tooltip="Go to about" data-delay="50" ui-sref="main.about">ABOUT</a>
+				</li>
+        <li class="tab disabled">
+        	<a class="tooltipped" data-position="bottom" data-tooltip="Go to about" data-delay="50" ui-sref="#">DSA</a>
+				</li>
       </ul>
     </div>
   </nav>
@@ -60,4 +65,25 @@
 <!-- nestled main content -->
 <div class="container">
 	<div ui-view></div>
+</div>
+
+
+
+
+
+
+
+
+<div class="fixed-action-btn" ng-controller="tweetFabController">
+	<a class="btn-floating btn-large red">
+		<i class="large material-icons tooltipped" data-position="top" data-tooltip="Tweet" data-delay="50" ng-click="openWriteTweet()">mode_edit</i>
+	</a>
+	<!--
+	<ul>
+		<li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+		<li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+		<li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+		<li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+	</ul>
+	-->
 </div>

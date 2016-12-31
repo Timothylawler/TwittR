@@ -4,6 +4,42 @@ require_once '../vendor/autoload.php';
 use Abraham\TwitterOAuth\TwitterOAuth;
 session_start();
 //header('Content-Type: application/json');
+$databaseInfo = require_once 'databaseConfig.php';
+
+function canCall (&$userId, &$db) {
+	if(isset($db)){
+		$rate = 60;
+		$query = "select lastCall from usertable where ID = " . $userId . ";";
+		$result = (int)$db->query($query);
+		//return $result;
+		if(!isset($result))
+				return true;
+		$returnValue = ((time() - $result) > $rate);
+		
+		//echo "<br>" . var_dump($result) . "<br>";
+		//$result->close();
+		//return (time() - $lastCall > $rate);
+		return $returnValue;
+	}
+	//	Cant connect
+	return false;
+}
+
+/*This does not work, does not update any values, it is the correct database though*/
+function makeCall(&$userId, &$db){
+	if(isset($db)){
+		//	Increment number of calls
+		$query = "update usertable set noCalls = noCalls + 1 where ID = " . (int)$userId . ";";
+		//$query = "insert into usertable (ID) values(321);";
+		$db->query($query); 
+		//	Set last call to now
+		$now = (int)time();
+		$timeQuery = "update usertable set lastCall = " . (int)$now . " where ID = " . $userId . ";";
+		$db->query($timeQuery);
+	
+	}
+	return ("Error connecting to database");
+}
 
 /**
 	I should really re design this singleton and use database instead... seems unneccessary at this point...
@@ -31,14 +67,13 @@ class callCheck{
 		if(!isset($lastCallTime))
 			return true;
 		return (time() - $lastCallTime > $rate);
-		
 	}
 	
 	/*
 		adds a call to the total calls and puts the current time to last call time
 	*/
 	public function makeCall(){
-		$calls++;
+		//$calls++;
 		$lastCallTime = time();
 	}
 }
@@ -46,6 +81,9 @@ class callCheck{
 	
 if(isset($_SESSION['twitter_user'])){
 	$rateChecker = callCheck::getInstance();
+	// Create connection
+	$db = new mysqli($databaseInfo['servername'], $databaseInfo['username'], $databaseInfo['password'], $databaseInfo['dbname']);
+
 	/*	---------	POST --------- */
 	if(isset($_POST['func'])){
 		switch($_POST['func']){
@@ -82,12 +120,18 @@ if(isset($_SESSION['twitter_user'])){
 				}
 				else{
 					//	pass default value
-					echo getTimeLine(5);
+					echo json_encode(getTimeLine(5));
 				}
 				break;
 				
-			case 'selfProfile':
+			case 'userProfile':
 				//	Requesting the current users profile
+				$userName = null;
+				if(isset($_GET['userName'])){
+					$userName = $_GET['userName'];
+				}
+				$data = getUser($userName);
+				echo json_encode($data);
 				break;
 				
 			default:
@@ -108,9 +152,49 @@ function getTimeLine($count){
 	//var_dump($statuses);
 	$json = json_encode($statuses);
 	$data = json_decode($json, true);
+	//	FIX THIS TO TAKE OUT MORE DATA THAN JUST TEXT
 	$returnData = array();
 	foreach($data as $tweet){
-		$returnData[] = $tweet['text'];
+		$item = array();
+		$item['text'] = $tweet['text'];
+		$item['created_at'] = $tweet['created_at'];
+		$item['id'] = $tweet['id'];
+		if(isset($tweet['entities']['media'])){
+			$media = $tweet['entities']['media'];
+			if(isset($media[0]['media_url'])){
+				
+				$mediaUrl = $media[0]['media_url'];
+				$item['media'] = $mediaUrl;
+			}
+			/*if(isset($entities['media'])){
+				$media = json_encode($entities['media']);
+				$mediaData = json_decode($media, false);
+				
+				//$entities['medias'] = $media;
+				$item['media'] = $mediaData;
+			}*/
+		}
+		/*if(isset($tweet['media'])){
+			$media = $tweet['media'];
+			$item['media'] = $media;
+		}*/
+		$user = $tweet['user'];
+		$item['user'] = $user;
+		if(isset($tweet['geo'])){
+			$item['geo'] = $tweet['geo'];
+		}
+		if(isset($tweet['coordinates'])){
+			$item['coordinates'] = $tweet['coordinates'];
+		}
+		if(isset($tweet['place'])){
+			$item['place'] = $tweet['place'];
+		}
+		$item['retweet_count'] = $tweet['retweet_count'];
+		$item['favorite_count'] = $tweet['favorite_count'];
+		$item['favorited'] = $tweet['favorited'];
+		$item['retweeted'] = $tweet['retweeted'];
+		
+		$returnData[] = $item;
 	}
 	//var_dump($returnData);
 	return $returnData;
@@ -210,14 +294,73 @@ function getUser($userName){
 	if(!isset($userName)){
 		$userName = $_SESSION['twitter_screen_name'];
 	}
+	//	Check if user profile is cached
+	if(isset($_SESSION['userProfile' . $userName])){
+		return $_SESSION['userProfile' . $userName];
+	}
+	
 	$twitter = $_SESSION['twitter_user'];
 	$user = json_encode($twitter->get("users/show", ["screen_name" => $userName]));
-	//$data = json_decode($user, true);
-	var_dump($user);
-	echo ("<br>");
-	echo $data['id'];
+	$data = json_decode($user, true);
+	//var_dump($user);
+	
+	$userData = array();
+	$userData['id'] = $data['id'];
+	$userData['name'] = $data['name'];
+	$userData['screen_name'] = $data['screen_name'];
+	if(isset($data['location'])){
+		$userData['location'] = $data['location'];
+	}
+	if(isset($data['profile_location'])){
+		$userData['profile_location'] = $data['id'];
+	}
+	if(isset($data['description'])){
+		$userData['description'] = $data['description'];
+	}
+	if(isset($data['url'])){
+		$userData['url'] = $data['url'];
+	}
+	$userData['followers_count'] = $data['followers_count'];
+	$userData['friends_count'] = $data['friends_count'];
+	$userData['listed_count'] = $data['listed_count'];
+	$userData['created_at'] = $data['created_at'];
+	$userData['favourites_count'] = $data['favourites_count'];
+	$userData['statuses_count'] = $data['statuses_count'];
+	if(isset($data['status'])){
+		$status = $data['status'];
+		$userData['status'] = $status;
+	}
+	$userData['profile_background_color'] = $data['profile_background_color'];
+	$userData['profile_image_url'] = $data['profile_image_url'];
+	
+	if(isset($data['profile_background_image_url'])){
+		$userData['profile_background_image_url'] = $data['profile_background_image_url'];
+	}
+	
+	$_SESSION['userProfile' . $userName] = $userData;
+	return($userData);
+	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ?>

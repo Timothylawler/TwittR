@@ -48,6 +48,7 @@ Saker att plocka ut från timeline tweets
 
 saker att plocka ut från user/show
 {
+	"id": "asd"
 	"name": "Dompa",
 	"screen_name": "vaskaDompa",
 	"location": "",
