@@ -1,22 +1,22 @@
-<div ng-controller="frontpageController">
+<section ng-controller="frontpageController">
 	
 	<h2>FRONT PAGE asd</h2>
 	
 	<div class="row" timeline-directive>
-	    <!-- ng-repeat for each tweet in the timeline -->
+		<!-- repeat for each tweet in timeline found in controller -->
 		<div ng-repeat="tweet in timeline track by $index" repeat-directive>
 			<div ng-controller="cardController">
 				<div class="col s12 m6 center" >
 					<div class="card" >
 						<div class="card-image">
-							<img src=" {{ tweet.media || '' }} ">
-							<span class="card-title">{{ tweet.user.name || tweet.user.screen_name || ''  }}</span>
-							<a class="btn-floating btn-medium waves-effect waves-light card-fab tooltipped" data-position="right" data-tooltip="Like" data-delay="50"><i class="material-icons">favorite</i></a>
+							<img src=" {{ tweet.entities.media[0].media_url || '' }} ">
+							<a class="btn-floating btn-medium waves-effect waves-light card-fab tooltipped" data-position="right" data-tooltip="Favorite" data-delay="50"><i class="material-icons">favorite</i></a>
 							<span class="btn-floating btn-medium waves-effect waves-light card-fab second tooltipped" data-position="right" data-tooltip="Retweet" data-delay="50"><i class="material-icons">sync</i></span>
 							<span class="btn-floating btn-medium waves-effect waves-light card-fab third tooltipped" data-position="right" data-tooltip="Comment" data-delay="50"><i class="material-icons">comment</i></span>
-							<a class="btn-floating btn-medium waves-effect waves-light card-fab fourth tooltipped" data-position="right" data-tooltip="More" data-delay="50" ng-click="hideMoreInformation = !hideMoreInformation"><i class="material-icons">info_outline</i></a>
+							<a class="btn-floating btn-medium waves-effect waves-light card-fab fourth tooltipped" data-position="right" data-tooltip="More" data-delay="50" ng-click="moreInformation = !moreInformation"><i class="material-icons">info_outline</i></a>
 						</div>
 						<div class="card-stacked">
+							<span class="card-title black-text">{{ tweet.user.name || tweet.user.screen_name || ''  }}</span>
 							<div class="card-content">
 								<p>{{ tweet.text }}</p>
 							</div>
@@ -26,7 +26,7 @@
 										Favorites: {{ tweet.favourite_count }}
 									</div>
 									<div class="col s6">
-										Retweets: {{ tweet.retweet_count }}
+										Friends: {{ tweet.retweet_count }}
 									</div>
 								</div>
 							</div>
@@ -34,15 +34,27 @@
 					</div>
 				</div>
 
-				<div class="col s12 m6 scrollcurtain" ng-hide="hideMoreInformation">
-					<p class="flow-text">HELLO HERE WE HAVE MORE INFORMATION, HELLO HERE WE HAVE MORE INFORMATION, HELLO HERE WE HAVE MORE INFORMATION, HELLO HERE WE HAVE MORE INFORMATION</p>
+				<div class="col s12 m6 scrollcurtain animShowHide center z-depth-1 margin-top-8" ng-hide="moreInformation">
+					<!-- Poster information -->
+					<section class="section">
+						<span><img src="{{ tweet.user.profile_image_url }}"></span>
+						<div class="flow-text">Posted by {{ tweet.user.name }} </div>
+						<div>{{ tweet.user.description }} </div>
+						<div class="row">
+							<div class="col s12 m6">
+								Followers: {{ tweet.user.followers_count }}
+							</div>
+							<div class="col s12 m6">
+								Friends: {{ tweet.user.friends_count }}
+							</div>
+						</div>
+					</section>
 				</div>
 			</div>
 		</div><!-- /ng-repeat-->
 	</div>
 	
-	<button class="btn waves-effect waves-light" ng-click="getTimeline()">Get some data!</button>
-</div>
+</section>
 
 
 

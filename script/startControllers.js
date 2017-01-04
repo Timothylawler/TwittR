@@ -84,24 +84,6 @@ function(){
 			// failure
 			console.log("error: ", data);
 		};
-	$scope.getTimeline = function () {
-		console.log("button pressed");
-		$http.get('php/twitter_calls.php', {
-				params: {
-					func: 'timeline',
-					count: '10'
-				}
-			}).then(
-				function (data) {
-					//console.log("success: ", data);
-					console.log(data['data']);
-					$scope.timeline = data['data'];
-				}),
-			function (data) {
-				// failure
-				console.log("error: ", data);
-			};
-	};
 })
 
 /*	CONTROLLER FOR PROFILE PAGE */
@@ -129,7 +111,9 @@ function(){
 /*	CONTROLLER FOR TWEET CARDS WITH TOOLTIP */
 .controller('cardController',
 	function ($scope) {
-		$scope.hideMoreInformation = true;
+		//	Setup states
+		$scope.moreInformation = true;
+	
 		angular.element(document).ready(function () {
 			//	Instantiate tooltip for the card
 			$('.tooltipped').tooltip({

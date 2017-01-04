@@ -73,12 +73,67 @@ body{
 
 /*	ANIMATION */
 .scrollcurtain {
-	transition: all linear 0.5s;
+	background-color: teal;
+	padding: 8px;
+	opacity: 1;
 	height: auto;
+	/*transition: height linear 0.5s;*/
 }
 
-.ng-hide {
-  height: 0;
+.animShowHide{
+	-webkit-transition: all 0.5s ease;
+		 -moz-transition: all 0.5s ease; 
+			 -o-transition: all 0.5s ease;
+					transition: all 0.5s ease;
 }
+
+
+
+.scrollcurtain.ng-hide{
+	opacity: 0;
+	height: 0;
+}
+/*
+.scrollcurtain.ng-show-add{
+	height:0;
+	opacity: 0;
+	-webkit-transition: all 0.3s ease;
+		 -moz-transition: all 0.3s ease; 
+			 -o-transition: all 0.3s ease;
+					transition: all 0.3s ease;
+}
+
+.scrollcurtain.ng-show-add-active {
+  height: 125px;
+	opacity: 1;
+}*/
+
+/*.scrollcurtain.ng-hide-add {
+  height: 125px;
+	opacity: 1;
+	
+}
+.scrollcurtain.ng-hide-add-active {
+  height: 0;
+	opacity: 0;
+}*/
 
 /*	/ANIMATION*/
+
+.tweet-card {
+	min-height: 350px;
+	display: inline;
+}
+
+.margin-top-8 {
+	margin-top: 8px;
+}
+
+.margin-8 {
+	margin-left: 8px;
+	margin-right: 8px;
+}
+
+.more-info-content {
+
+}

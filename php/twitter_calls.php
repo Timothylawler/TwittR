@@ -159,25 +159,12 @@ function getTimeLine($count){
 		$item['text'] = $tweet['text'];
 		$item['created_at'] = $tweet['created_at'];
 		$item['id'] = $tweet['id'];
-		if(isset($tweet['entities']['media'])){
-			$media = $tweet['entities']['media'];
-			if(isset($media[0]['media_url'])){
-				
-				$mediaUrl = $media[0]['media_url'];
-				$item['media'] = $mediaUrl;
-			}
-			/*if(isset($entities['media'])){
-				$media = json_encode($entities['media']);
-				$mediaData = json_decode($media, false);
-				
-				//$entities['medias'] = $media;
-				$item['media'] = $mediaData;
-			}*/
+		
+		//	Get entities, where urls and media is 
+		if(isset($tweet['entities'])){
+			$media = $tweet['entities'];
+			$item['entities'] = $media;
 		}
-		/*if(isset($tweet['media'])){
-			$media = $tweet['media'];
-			$item['media'] = $media;
-		}*/
 		$user = $tweet['user'];
 		$item['user'] = $user;
 		if(isset($tweet['geo'])){

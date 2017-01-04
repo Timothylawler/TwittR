@@ -28,7 +28,7 @@
 				<!-- button to redirect to twitter -->
 				<div class="card-action">
 					<form action="php/twitter_login.php">
-						<button class="btn waves-effect waves-light" type="submit">Sing in to Twitter</button>
+						<button class="btn waves-effect waves-light" type="submit">Sign in to Twitter</button>
 					</form>
 				</div>
 			</div>
