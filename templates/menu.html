@@ -1,4 +1,4 @@
-<div ng-controller="menuController" class="">
+<div ng-controller="menuController as menuController" class="">
 	<!-- Slide drawer -
 	<ul id="slide-out" class="side-nav deep-purple darken-3 menu">
 		<li>
@@ -43,12 +43,12 @@
       <a href="#" class="brand-logo">TwittR</a>
      
       <ul id="nav" class="right">
-        <li><a class="flow-text" ui-sref="main.profile"><i class="material-icons right">perm_identity</i> {{ username }}</a></li>
+        <li><a class="flow-text" ui-sref="main.profile"><i class="material-icons right">perm_identity</i> {{ menuController.username }}</a></li>
       </ul>
       
       <ul class="tabs tabs-transparent">
         <li class="tab">
-        	<a class="tooltipped" data-position="bottom" data-tooltip="Go to the front page" data-delay="50" ui-sref="main.frontpage">HOME</a>
+        	<a class="tooltipped" data-position="bottom" data-tooltip="Go to timeline" data-delay="50" ui-sref="main.frontpage">TIMELINE</a>
 				</li>
         <li class="tab">
         	<a class="tooltipped" data-position="bottom" data-tooltip="Go to about" data-delay="50" ui-sref="main.about">ABOUT</a>
@@ -63,7 +63,7 @@
 
 
 <!-- nestled main content -->
-<div class="container">
+<div class="">
 	<div ui-view></div>
 </div>
 
@@ -73,11 +73,13 @@
 
 
 
-
-<div class="fixed-action-btn" ng-controller="tweetFabController">
-	<a class="btn-floating btn-large red">
-		<i class="large material-icons tooltipped" data-position="top" data-tooltip="Tweet" data-delay="50" ng-click="openWriteTweet()">mode_edit</i>
+<!-- Tweet Floating action button 
+====================================================================-->
+<div class="fixed-action-btn" ng-controller="tweetFabController as ctrl">
+	<a class="btn-floating btn-large red" ng-click="ctrl.openTweetModal()">
+		<i class="large material-icons tooltipped" data-position="top" data-tooltip="Tweet" data-delay="50">mode_edit</i>
 	</a>
+	
 	<!--
 	<ul>
 		<li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
@@ -87,3 +89,54 @@
 	</ul>
 	-->
 </div>
+
+<!-- Modal for tweet 
+=================================================================== -->
+<div id="tweetModal" class="modal" ng-controller="tweetController as tweetController">
+	<div class="modal-content container">
+		<span class="btn-flat waves-effect waves-green right " ng-click="tweetController.clear()">Clear</span>
+		<h4 class="center">NEW TWEET</h4>
+		
+			<div class="row">
+				<div id="modalImageArea col s12" ng-show="tweetController.image">
+					
+					<!-- file uploader for when no image has been selected -->
+					<div>
+						<form id="imageForm" name="imageForm">
+							<div class="btn" ngf-select ng-model="tweetController.imageFile" name="imageFile" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-resize="{width: 300, height:300}">SELECT IMAGE</div>
+							<div class="btn" ng-click="tweetController.uploadImage(tweetController.imageFile)">UPLOAD AND USE IMAGE</div>
+						</form>
+						
+						<!-- image thumbnail -->
+						<img class="col s12" ngf-thumbnail="tweetController.imageFile || tweetController.thumb" alt="Thumbnail">
+					</div><!-- /fileUploader -->
+					
+				</div>
+				<form novalidate action="">
+					<div class="row">
+						<div class="col s12">
+							<textarea class="modal-text-area" placeholder="Enter tweet text" required ng-model="tweetController.tweet.tweetText"></textarea>
+						</div>
+
+						<a id="showImageBtn" class="btn-floating small tooltipped right" data-position="left" data-tooltip="Add image" data-delay="50" ng-click="tweetController.showImageArea()">
+							<i class="material-icons">add</i>
+						</a>
+					</div>
+
+					<div class="modal-footer">
+						<p ng-show="tweetController.image">Remember to upload image if they should be included in this tweet</p>
+						<a href="" class="waves-effect waves-green btn-flat" ng-click="tweetController.post()">POST</a>
+						<a href="" class="modal-action modal-close waves-effect waves-green btn-flat">DISCARD</a>
+					</div>
+				</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+

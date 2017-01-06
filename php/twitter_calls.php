@@ -88,6 +88,10 @@ if(isset($_SESSION['twitter_user'])){
 	if(isset($_POST['func'])){
 		switch($_POST['func']){
 			
+			case 'tweet':
+				//	Make sure we really got data
+				
+				
 	 
 		 	default:
 				//	No matching call available
@@ -138,6 +142,27 @@ if(isset($_SESSION['twitter_user'])){
 				echo 'Invalid call';
 				break;
 				
+			case 'postTweet':
+				echo ("in post tweet");
+				//	Make sure we really got data
+				if(isset($_GET['text'])){
+					$twitter = $_SESSION['twitter_user'];
+					//	Check if an image was passed along
+					if(isset($_GET['media'])){
+						echo($_GET['media']);
+						$mediaId = uploadMedia($_GET['media']);
+						$response = postTweetWithMedia($_GET['text'], $mediaId);
+						//echo ("mediaID " . $mediaId);
+					}
+					else{
+						$status = $twitter->post(
+							"statuses/update", [
+								"status" => $_GET['text']
+							]
+						);
+					}
+				}
+				break;
 		}
 	}
 	
@@ -241,9 +266,6 @@ function TESTgetEntireTimeLine($count){
 			}
 		}
 		
-		
-		
-		
 		$data['entities'] = $entities;
 		
 		//	Get data of the posting user
@@ -330,7 +352,33 @@ function getUser($userName){
 	
 }
 
+function uploadMedia(&$path){
+	//	Twitter requires Base64 encoding or raw binary. 
+	//$file = file_get_contents($path);
+	//$encoded = base64_encode($file);
+	//if(isset($encoded)){
+		$twitter = $_SESSION['twitter_user'];
+		$response = $twitter->upload(
+			"media/upload", [
+				"media" => $path
+			]
+		);
+		$data = json_decode(json_encode($response), true);
+		//echo $data['code'];
+		return($data['media_id']);
+		
+	//}
+}
 
+function postTweetWithMedia(&$text, &$mediaId){
+	$twitter = $_SESSION['twitter_user'];
+	$parameters = [
+    'status' => $text,
+    'media_ids' => $mediaId
+	];
+	$result = $twitter->post('statuses/update', $parameters);
+	return $result;
+}
 
 
 

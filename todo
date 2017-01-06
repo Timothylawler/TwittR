@@ -1,5 +1,10 @@
 Lilla fönstret kan anropa en funktion i opener för att stänga sig när autentiseringen är klar.
 
+Card controller should probably be using a factory really instead of reusing the same controller, resue a factory. check under dataservice for papa
+
+DONE - Till next time, fix tweet modal
+fix image upload shitten
+
 
 Saker att plocka ut från timeline tweets
 [{

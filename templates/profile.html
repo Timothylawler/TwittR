@@ -1,47 +1,132 @@
-<section ng-controller="profileController" class="margin-top">
+<section ng-controller="profileController as profileController" class="">
 	<!--<p>{{ userData }}</p> -->
-	<div class="row">
-		<div class="col s12 m4">
-			<div class="card">
-			
-				<div class="card-content">
-					<img src="{{ userData.profile_image_url }}" alt="profile image">
-					<span class="flow-text">{{ userData.screen_name }}</span>
-					<p>Followers: {{ userData.followers_count }}</p>
-					<p>Friends: {{ userData.friends_count }}</p>
-					<p>Statuses: {{ userData.statuses_count }}</p>
-					<p>Since: {{ userData.created_at | customDateFormatter }}</p>
+	<!-- parallax header -->
+	<div class="parallax-container">
+   	<div class="section">
+   		<div class="container">
+   			<div class="row center">
+   				<br>
+   				<br>
+   				<br>
+   				<br>
+   				<br>
+   				<br>
+   				<br>
+   				<br>
+   				<br>
+   				<br>
+   				<br>
+   				<br>
+   				<br>
+   				<br>
+   				
+					<h1 class="header teal-text col s12">
+						{{ profileController.userData.screen_name }}
+					</h1>
+					<div class="flow-text white-text col s12">
+						Welcome to your profile page
+					</div>
+					
 				</div>
 			</div>
-		</div>
-		
-		<div class="col s12 m8">
-			<div class="card" ng-controller="cardController">
-				<div class="card-image">
-					<img src="Images/sample-1.jpg">
-					<span class="card-title">{{userData.screen_name}}</span>
-					<a class="btn-floating btn-medium waves-effect waves-light card-fab tooltipped" data-position="right" data-tooltip="Like" data-delay="50"><i class="material-icons">favorite</i></a>
-					<span class="btn-floating btn-medium waves-effect waves-light card-fab second tooltipped" data-position="right" data-tooltip="Retweet" data-delay="50"><i class="material-icons">sync</i></span>
-					<span class="btn-floating btn-medium waves-effect waves-light card-fab third tooltipped" data-position="right" data-tooltip="Comment" data-delay="50"><i class="material-icons">comment</i></span>
-				</div>
-				<div class="card-stacked">
+   	</div>
+   	<!-- parallax image -->
+    <div class="parallax">
+    	<img src="images/railroadbg.jpg">
+    </div>
+    
+  </div>
+  
+	<div class="section intro container">
+		<div class="row">
+			<div class="col s12 m4">
+				<div class="card">
+
 					<div class="card-content">
-						<p>{{ userData.status.text }}</p>
+						<img src="{{ profileController.userData.profile_image_url }}" alt="profile image">
+						<span class="flow-text">{{ profileController.userData.screen_name }}</span>
+						<p>Followers: {{ profileController.userData.followers_count }}</p>
+						<p>Friends: {{ profileController.userData.friends_count }}</p>
+						<p>Favorited: {{ profileController.userData.favourites_count }}</p>
+						<p>Statuses: {{ profileController.userData.statuses_count }}</p>
+						<p>Since: {{ profileController.userData.created_at | customDateFormatter }}</p>
 					</div>
-					<div class="card-action">
-						<div class="row">
-							<div class="col s6">
-								Favorites: {{ userData.status.favorite_count }}
-							</div>
-							<div class="col s6">
-								Retweets: {{ userData.status.retweet_count }}
+				</div>
+			</div>
+
+			<div class="col s12 m8 center">
+				<div class="card" ng-controller="cardController">
+					<div class="card-image">
+						<img class="responsive-img" ng-if="profileController.userData.status.entities.media[0].media_url !== undefined" src="{{ profileController.userData.status.entities.media[0].media_url || '' }}" >
+						<a class="btn-floating btn-medium waves-effect waves-light card-fab tooltipped" data-position="right" data-tooltip="Like" data-delay="50"><i class="material-icons">favorite</i></a>
+						<span class="btn-floating btn-medium waves-effect waves-light card-fab second tooltipped" data-position="right" data-tooltip="Retweet" data-delay="50"><i class="material-icons">sync</i></span>
+						<span class="btn-floating btn-medium waves-effect waves-light card-fab third tooltipped" data-position="right" data-tooltip="Comment" data-delay="50"><i class="material-icons">comment</i></span>
+					</div>
+					<div class="card-stacked">
+						<span class="card-title black-text">{{ profileController.userData.name || profileController.userData.screen_name || ''  }}</span>
+						<div class="card-content">
+							<p>{{ profileController.userData.status.text }}</p>
+						</div>
+						<div class="card-action">
+							<div class="row">
+								<div class="col s6">
+									Favorites: {{ profileController.userData.status.favorite_count }}
+								</div>
+								<div class="col s6">
+									Retweets: {{ profileController.userData.status.retweet_count }}
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		
-		
+
+			
+		</div><!-- /row -->
+		<!-- some use information about this user for this application -->
+		<div class="section">
+			<div class="row">
+				<div class="col s12">
+					<div class="flow-text center">
+						Application usage information
+					</div>
+
+					<div class="col m4 s12">
+						<div class="card center info-card">
+							<div class="card-title">
+								TIMES YOU LOGGED IN
+							</div>
+							<div class="card-content">
+								4
+							</div>
+						</div>
+					</div>
+
+					<div class="col m4 s12">
+						<div class="card center info-card">
+							<div class="card-title">
+								NUMBER OF TWITTER CALLS YOU HAVE MADE
+							</div>
+							<div class="card-content">
+								4
+							</div>
+						</div>
+					</div>
+
+					<div class="col m4 s12">
+						<div class="card center info-card">
+							<div class="card-title">
+								NUMBER OF USERS TOTAL
+							</div>
+							<div class="card-content">
+								4
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div><!-- /information -->
 	</div>
 </section>
