@@ -54,13 +54,13 @@
 				</div>
 			</div>
 
-			<div class="col s12 m8 center">
+			<div class="col s12 m6 offset-m2 center">
 				<div class="card" ng-controller="cardController">
 					<div class="card-image">
 						<img class="responsive-img" ng-if="profileController.userData.status.entities.media[0].media_url !== undefined" src="{{ profileController.userData.status.entities.media[0].media_url || '' }}" >
-						<a class="btn-floating btn-medium waves-effect waves-light card-fab tooltipped" data-position="right" data-tooltip="Like" data-delay="50"><i class="material-icons">favorite</i></a>
-						<span class="btn-floating btn-medium waves-effect waves-light card-fab second tooltipped" data-position="right" data-tooltip="Retweet" data-delay="50"><i class="material-icons">sync</i></span>
-						<span class="btn-floating btn-medium waves-effect waves-light card-fab third tooltipped" data-position="right" data-tooltip="Comment" data-delay="50"><i class="material-icons">comment</i></span>
+						<a class="btn-floating btn-medium waves-effect waves-light card-fab tooltipped teal" data-position="right" data-tooltip="Like" data-delay="50"><i class="material-icons">favorite</i></a>
+						<a class="btn-floating btn-medium waves-effect waves-light card-fab second tooltipped indigo" data-position="right" data-tooltip="Retweet" data-delay="50"><i class="material-icons">sync</i></a>
+						<!--<a class="btn-floating btn-medium waves-effect waves-light card-fab third tooltipped deep-purple" data-position="right" data-tooltip="Comment" data-delay="50"><i class="material-icons">comment</i></a>-->
 					</div>
 					<div class="card-stacked">
 						<span class="card-title black-text">{{ profileController.userData.name || profileController.userData.screen_name || ''  }}</span>

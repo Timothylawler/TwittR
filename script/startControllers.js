@@ -251,15 +251,77 @@ function ($http) {
 
 /*	CONTROLLER FOR TWEET CARDS WITH TOOLTIP */
 .controller('cardController',
-function ($scope) {
+function ($scope, $http) {
+	var self = this;
 	//	Setup states
 	$scope.moreInformation = true;
-
+	
+	/*	Called when the favoritebutton is pressed
+		sends a request to twitter_calls.php to favorite the tweet
+	*/
+	this.favorite = function(index){
+		//	Get id of the tweet
+		var tweet = $scope.timeline[index];
+		//	favorite a tweet
+		$http.get('php/twitter_calls.php', {
+				params: {
+					func: 'favorite',
+					tweetId: tweet.id
+				}
+			}).then(
+				function (data) {
+					console.log(data['data']);
+					//	Increment the favorites by 1
+					$scope.timeline[index].favorite_count +=1;
+				}),
+			function (data) {
+				// failure
+				console.log("error: ", data);
+			};
+	}
+	
+	/*	Called when the favoritebutton is pressed
+	*/
+	this.comment = function(index){
+		
+	}
+	
+	/*	Called when the favoritebutton is pressed
+	*/
+	this.retweet = function(index){
+		//	Get id of the tweet
+		var tweet = $scope.timeline[index];
+		
+		//	retweet a tweet
+		$http.get('php/twitter_calls.php', {
+				params: {
+					func: 'retweet',
+					tweetId: tweet.id
+				}
+			}).then(
+				function (data) {
+					console.log(data['data']);
+					//	Increment the favorites by 1
+					$scope.timeline[index].retweet_count +=1;
+				}),
+			function (data) {
+				// failure
+				console.log("error: ", data);
+			};
+	}
+	
 	angular.element(document).ready(function () {
 		//	Instantiate tooltip for the card
 		$('.tooltipped').tooltip({
 			delay: 50
 		});
+		self.tw = $scope.timeline[$scope.$index];
+		//console.log(self.tw);
+		// check if tweet has been favortied and retweeted
+		//	FIX THIS! VENE VAD JAG SKA GÖRA MED DENNA!
+		if(self.tw.favorited === true)
+			$('#favorite-btn').addClass("disabled");
+		
 	});
 
 });

@@ -3,7 +3,14 @@ Lilla fönstret kan anropa en funktion i opener för att stänga sig när autent
 Card controller should probably be using a factory really instead of reusing the same controller, resue a factory. check under dataservice for papa
 
 DONE - Till next time, fix tweet modal
-fix image upload shitten
+DONE THANKS LAAWD FOR THAT - fix image upload shitten
+DONE - fix interaction with tweets
+fix error handling
+fix database for user statistics
+fix fetching from database for profile page
+fix disabling button in tweet, for image upload and so on
+fix handle time out on requests
+fix index in cardController for profile
 
 
 Saker att plocka ut från timeline tweets

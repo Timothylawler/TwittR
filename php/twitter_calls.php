@@ -83,7 +83,7 @@ if(isset($_SESSION['twitter_user'])){
 	$rateChecker = callCheck::getInstance();
 	// Create connection
 	$db = new mysqli($databaseInfo['servername'], $databaseInfo['username'], $databaseInfo['password'], $databaseInfo['dbname']);
-
+	$twitter = $_SESSION['twitter_user'];
 	/*	---------	POST --------- */
 	if(isset($_POST['func'])){
 		switch($_POST['func']){
@@ -143,10 +143,9 @@ if(isset($_SESSION['twitter_user'])){
 				break;
 				
 			case 'postTweet':
-				echo ("in post tweet");
 				//	Make sure we really got data
 				if(isset($_GET['text'])){
-					$twitter = $_SESSION['twitter_user'];
+					//$twitter = $_SESSION['twitter_user'];
 					//	Check if an image was passed along
 					if(isset($_GET['media'])){
 						echo($_GET['media']);
@@ -161,6 +160,51 @@ if(isset($_SESSION['twitter_user'])){
 							]
 						);
 					}
+				}
+				break;
+				
+			case 'favorite':
+				//	Cant do anything without id
+				if(isset($_GET['tweetId'])){
+					$tweetId = $_GET['tweetId'];
+					$response = $twitter->post(
+						"favorites/create", [
+							"id" => $tweetId
+						]
+					);
+					if($twitter->getLastHttpCode() == 200){
+						echo http_response_code(200);
+					}
+					else{
+						echo http_response_code(500);
+					}
+				}
+				else{
+					echo http_response_code(400);
+					echo "failed to get id";
+				}
+				break;
+				
+			case 'comment':
+				break;
+			case 'retweet':
+				if(isset($_GET['tweetId'])){
+					$tweetId = $_GET['tweetId'];
+					$response = $twitter->post(
+						"statuses/retweet", [
+							"id" => $tweetId
+						]
+					);
+					if($twitter->getLastHttpCode() == 200){
+						echo http_response_code(200);
+					}
+					else{
+						echo http_response_code(500);
+					}
+				}
+				else{
+					echo http_response_code(400);
+					echo "failed to get id";
 				}
 				break;
 		}

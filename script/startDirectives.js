@@ -13,6 +13,7 @@ angular.module('app')
 })
 .directive('timelineDirective', function(){
 	return function(scope){
+		
 		scope.$on('LastElement', function(){
 			//$('.tooltipped').tooltip({delay: 50});
 		});
