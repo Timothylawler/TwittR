@@ -2,12 +2,14 @@
 
 <?php
 //	TODO Fix the database ffs.
-session_start();
+//session_start();
 include("twitter_calls.php");
-$databaseInfo = require_once 'databaseConfig.php';
+$dbinfo = require('databaseConfig.php');
 
 // Create connection
-/*$db = new mysqli($databaseInfo['servername'], $databaseInfo['username'], $databaseInfo['password'], $databaseInfo['dbname']);
+//$db = new mysqli('localhost', 'root', '', 'glittr');
+$db = new mysqli($dbinfo['servername'], $dbinfo['username'], '', $dbinfo['dbname']);
+$db->select_db("glittr");
 if ($db->connect_error) {
     die("Connection failed: " . $db->connect_error);
 } 
@@ -18,13 +20,13 @@ echo("UID: " . $_SESSION['twitter_user_id'] . "<br>");
 $canCall = canCall($_SESSION['twitter_user_id'], $db);
 
 if($canCall){
-	echo("making call");
+	echo("making call <br>");
 	makeCall($_SESSION['twitter_user_id'], $db);
 }
 echo "canCall: " . canCall($_SESSION['twitter_user_id'], $db);
 
-echo "<br>" . time();*/
+//echo "<br>" . time();
 
-var_dump(getTimeLine(2));
+//var_dump(getTimeLine(2));
 
 ?>

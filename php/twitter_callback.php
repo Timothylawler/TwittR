@@ -6,7 +6,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 session_start();
 $config = require_once 'config.php';
 $keys = require_once 'twitter_keys.php';
-$databaseInfo = require_once 'databaseConfig.php';
+$databaseInfo = require('databaseConfig.php');
 
 
 $oauth_verifier = filter_input(INPUT_GET, 'oauth_verifier');
@@ -72,7 +72,7 @@ if($result->num_rows > 0){
 }else{
   // not found
 	// add user to database with 1 in number of times visited
-	$query = "insert into usertable (ID, noVisited) values(" . $userId . ", 1);";
+	$query = "insert into usertable (ID, noVisited, lastCall, noCalls) values(" . $userId . ", 1, 0, 0);";
 	$db->query($query);
 }
 

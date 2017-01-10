@@ -2,7 +2,8 @@
 	
 	<h2 class="heading center">TIMELINE</h2>
 	
-	<div class="row" timeline-directive>
+	<div id="head-row" class="row" timeline-directive>
+		
 		<!-- repeat for each tweet in timeline found in controller -->
 		<div ng-repeat="tweet in timeline track by $index" repeat-directive>
 			<div ng-controller="cardController as cardCtrl">
@@ -10,8 +11,8 @@
 					<div class="card" >
 						<div class="card-image">
 							<img class="responsive-img" ng-if="tweet.entities.media[0].media_url !== undefined" src=" {{ tweet.entities.media[0].media_url || '' }} ">
-							<a id="favorite-btn" href="" class="btn-floating btn-medium waves-effect waves-light card-fab tooltipped deep-purple" ng-click="cardCtrl.favorite($index)" data-position="left" data-tooltip="Favorite" data-delay="50"><i class="material-icons">favorite</i></a>
-							<a href="" class="btn-floating btn-medium waves-effect waves-light card-fab second tooltipped indigo" ng-click="cardCtrl.retweet($index)" data-position="left" data-tooltip="Retweet" data-delay="50"><i class="material-icons">sync</i></a>
+							<a id="favorite-btn" href="" class="btn-floating btn-medium waves-effect waves-light card-fab tooltipped deep-purple {{ stateClassFav }} {{ tweet.id }}" ng-click="cardCtrl.favorite($index)" data-position="left" data-tooltip="Favorite" data-delay="50"><i class="material-icons">favorite</i></a>
+							<span href="" class="btn-floating btn-medium waves-effect waves-light card-fab second tooltipped indigo {{ stateClassRt }} {{ tweet.id }}" ng-click="cardCtrl.retweet($index)" data-position="left" data-tooltip="Retweet" data-delay="50"><i class="material-icons">sync</i></span>
 							<!--<a href="" class="btn-floating btn-medium waves-effect waves-light card-fab third tooltipped deep-purple" ng-click="cardCtrl.comment($index)" data-position="left" data-tooltip="Comment" data-delay="50"><i class="material-icons">comment</i></a>-->
 							<a href="" class="btn-floating btn-medium waves-effect waves-light card-fab third tooltipped teal" data-position="left" data-tooltip="More" data-delay="50" ng-click="moreInformation = !moreInformation"><i class="material-icons">info_outline</i></a>
 						</div>

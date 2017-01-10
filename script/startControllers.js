@@ -202,7 +202,7 @@ function(){
 .controller('frontpageController', 
 function ($scope, $http) {
 	var self = this;
-	$scope.timeline;
+
 	//  Call to get 10 timeline tweets
 	$http.get('php/twitter_calls.php', {
 		params: {
@@ -212,8 +212,10 @@ function ($scope, $http) {
 	}).then(
 		function (data) {
 			//console.log("success: ", data);
-			console.log(data['data']);
-			$scope.timeline = data['data'];
+			console.log(data['data'].length);
+			if(data['data'].length > 0){
+				$scope.timeline = data['data'];
+			}
 		}),
 	function (data) {
 		// failure
@@ -273,6 +275,7 @@ function ($scope, $http) {
 					console.log(data['data']);
 					//	Increment the favorites by 1
 					$scope.timeline[index].favorite_count +=1;
+					$('a.' + $scope.timeline[index].id).addClass('disabled');
 				}),
 			function (data) {
 				// failure
@@ -303,6 +306,7 @@ function ($scope, $http) {
 					console.log(data['data']);
 					//	Increment the favorites by 1
 					$scope.timeline[index].retweet_count +=1;
+					$('span.' + $scope.timeline[index].id).addClass('disabled');
 				}),
 			function (data) {
 				// failure
@@ -315,13 +319,6 @@ function ($scope, $http) {
 		$('.tooltipped').tooltip({
 			delay: 50
 		});
-		self.tw = $scope.timeline[$scope.$index];
-		//console.log(self.tw);
-		// check if tweet has been favortied and retweeted
-		//	FIX THIS! VENE VAD JAG SKA GÖRA MED DENNA!
-		if(self.tw.favorited === true)
-			$('#favorite-btn').addClass("disabled");
-		
 	});
 
 });

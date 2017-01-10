@@ -4,20 +4,22 @@ require_once '../vendor/autoload.php';
 use Abraham\TwitterOAuth\TwitterOAuth;
 session_start();
 //header('Content-Type: application/json');
-$databaseInfo = require_once 'databaseConfig.php';
+$databaseInfo = require('databaseConfig.php');
 
-function canCall (&$userId, &$db) {
+function canCall (&$userId, $db) {
 	if(isset($db)){
 		$rate = 60;
 		$query = "select lastCall from usertable where ID = " . $userId . ";";
-		$result = (int)$db->query($query);
+		$result = $db->query($query);
+		$row = $result->fetch_assoc();
 		//return $result;
 		if(!isset($result))
 				return true;
-		$returnValue = ((time() - $result) > $rate);
-		
+		$returnValue = ((time() - $row['lastCall']) > $rate);
+		//echo $returnValue . "<br><br>";
 		//echo "<br>" . var_dump($result) . "<br>";
 		//$result->close();
+		
 		//return (time() - $lastCall > $rate);
 		return $returnValue;
 	}
@@ -28,17 +30,24 @@ function canCall (&$userId, &$db) {
 /*This does not work, does not update any values, it is the correct database though*/
 function makeCall(&$userId, &$db){
 	if(isset($db)){
+		$db->select_db("glittr");
+		//echo $db->error;
 		//	Increment number of calls
-		$query = "update usertable set noCalls = noCalls + 1 where ID = " . (int)$userId . ";";
+		//echo ("<br>In make Call <br>");
+		//echo ("<br>uid: " . $userId);
+		$queryNoCalls = "UPDATE usertable SET noCalls = noCalls + 1 WHERE ID = " . $userId . ";";
+		//echo ("<br>". $queryNoCalls . "<br>");
+		
 		//$query = "insert into usertable (ID) values(321);";
-		$db->query($query); 
+		//$db->query($queryNoCalls); 
+		//echo ("<br>".$db->error . "<br>");
 		//	Set last call to now
 		$now = (int)time();
-		$timeQuery = "update usertable set lastCall = " . (int)$now . " where ID = " . $userId . ";";
+		$timeQuery = "update usertable set lastCall = " . $now . " where ID = " . $userId . ";";
 		$db->query($timeQuery);
 	
 	}
-	return ("Error connecting to database");
+	//return ("Error connecting to database");
 }
 
 /**
@@ -81,8 +90,10 @@ class callCheck{
 	
 if(isset($_SESSION['twitter_user'])){
 	$rateChecker = callCheck::getInstance();
-	// Create connection
+	//	Create connection to database
 	$db = new mysqli($databaseInfo['servername'], $databaseInfo['username'], $databaseInfo['password'], $databaseInfo['dbname']);
+	//	get userId currently logged in. used for calling database
+	$uid = $_SESSION['twitter_user_id'];
 	$twitter = $_SESSION['twitter_user'];
 	/*	---------	POST --------- */
 	if(isset($_POST['func'])){
@@ -119,12 +130,31 @@ if(isset($_SESSION['twitter_user'])){
 				if(isset($_GET['count'])){
 					//	Requesting with passed count
 					$count = $_GET['count'];
-					$data = getTimeLine($count);
-					echo json_encode($data);
+					$canCall = canCall($_SESSION['twitter_user_id'], $db);
+
+					if($canCall){
+						//echo("making call <br>");
+						makeCall($_SESSION['twitter_user_id'], $db);
+						$data = getTimeLine($count);
+						echo json_encode($data);
+					}
+					else{
+						echo "";
+					}
+					
 				}
 				else{
+					//	Calling timeline with default value
+					$canCall = canCall($_SESSION['twitter_user_id'], $db);
+					if($canCall){
+						makeCall($uid, $db);
+						$data = getTimeLine($count);
+						echo json_encode(getTimeLine(10));
+					}
+					else{
+						echo "";
+					}
 					//	pass default value
-					echo json_encode(getTimeLine(5));
 				}
 				break;
 				
